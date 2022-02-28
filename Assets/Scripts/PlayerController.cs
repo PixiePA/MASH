@@ -5,8 +5,6 @@ using UnityEngine;
 public class PlayerController : Listener
 {
     // Start is called before the first frame update
-    [SerializeField] GameObject gameManagerObject;
-    GameManager gameManager;
     [SerializeField] Rigidbody2D rb;
     public int passengers;
     [SerializeField] int maxPassengers;
@@ -19,8 +17,7 @@ public class PlayerController : Listener
     }
     void Start()
     {
-        gameManager = gameManagerObject.GetComponent<GameManager>();
-        gameManager.AddListener(this);
+        GameManager.AddListener(this);
     }
 
     // Update is called once per frame
@@ -44,7 +41,18 @@ public class PlayerController : Listener
 
     public override void GameReset()
     {
-        rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         transform.position = startPosition;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag.Equals("Finish"))
+        {
+            GameManager.score += passengers;
+            passengers = 0;
+            Debug.Log("Score:" + GameManager.score + " Passengers:" + passengers);
+
+            GameManager.MapReset();
+        }
     }
 }

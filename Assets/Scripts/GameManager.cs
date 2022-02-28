@@ -6,15 +6,18 @@ public class GameManager : MonoBehaviour
 {
 
     public enum GameState {Start, Playing, GameOver};
-    public GameState state;
-    List<Listener> GameListeners = new List<Listener>();
-    public int score;
-    int highScore;
-    float gameTime = 0;
-    float bestTime;
+    static public GameState state;
+    static List<Listener> GameListeners = new List<Listener>();
+    static public int score;
+    static int highScore;
+    static float gameTime = 0;
+    static float bestTime;
+    [SerializeField] GameObject map;
+    static MapGeneratorScript mapGen;
     // Start is called before the first frame update
     void Start()
     {
+        mapGen = map.GetComponent<MapGeneratorScript>();
         state = GameState.Start; //Set Game State
 
         if (PlayerPrefs.HasKey("highScore"))
@@ -32,6 +35,8 @@ public class GameManager : MonoBehaviour
         else
         bestTime = Mathf.Infinity;
 
+        mapGen.GenerateMap();
+
         //StartGame();
     }
 
@@ -45,6 +50,7 @@ public class GameManager : MonoBehaviour
 
         if ((state == GameState.GameOver || state == GameState.Playing) && Input.GetKeyDown(KeyCode.R))
         {
+            EndGame();
             Reset();
         }
 
@@ -56,7 +62,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void StartGame()
+    static public void StartGame()
     {
         gameTime = 0;
         score = 0;
@@ -70,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void EndGame()
+    static public void EndGame()
     {
         if (score > highScore)
         {
@@ -95,7 +101,7 @@ public class GameManager : MonoBehaviour
         state = GameState.GameOver;
     }
 
-    public void Reset()
+    static public void Reset()
     {
         foreach (Listener listener in GameListeners)
         {
@@ -105,8 +111,13 @@ public class GameManager : MonoBehaviour
         state = GameState.Start;
     }
 
-    public void AddListener(Listener listener)
+    static public void AddListener(Listener listener)
     {
         GameListeners.Add(listener);
+    }
+
+    static public void MapReset()
+    {
+        mapGen.SpawnNewTrees();
     }
 }

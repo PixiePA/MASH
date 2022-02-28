@@ -99,18 +99,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.023988008, y: 0.18770474}
+  m_Offset: {x: -0.015268803, y: 0.14190531}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.1333334, y: 2.1333334}
+    oldSize: {x: 1.882353, y: 1.882353}
     newSize: {x: 320, y: 320}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.279357, y: 1.1054475}
+  m_Size: {x: 1.2008433, y: 0.9091637}
   m_EdgeRadius: 0
 --- !u!95 &1990716250
 Animator:
@@ -164,3 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae34bcc0fd217242ab85662a099abf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManagerObject: {fileID: 0}
+  rb: {fileID: 0}
+  passengers: 0
+  maxPassengers: 0
+  speed: 0

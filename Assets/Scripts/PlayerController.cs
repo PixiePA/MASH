@@ -10,6 +10,8 @@ public class PlayerController : Listener
     [SerializeField] int maxPassengers;
     [SerializeField] float speed;
     Vector3 startPosition;
+    [SerializeField] AudioSource HelicopterSound;
+    [SerializeField] AudioSource PassengerPickupSound;
 
     private void Awake()
     {
@@ -31,16 +33,21 @@ public class PlayerController : Listener
 
     public override void GameStarted()
     {
+        HelicopterSound.Play();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
     }
 
     public override void GameEnded()
     {
+        HelicopterSound.Stop();
         rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
     }
 
     public override void GameReset()
     {
+        passengers = 0;
+        GameManager.UpdatePassengers(passengers);
         transform.position = startPosition;
     }
 
@@ -50,9 +57,15 @@ public class PlayerController : Listener
         {
             GameManager.score += passengers;
             passengers = 0;
-            Debug.Log("Score:" + GameManager.score + " Passengers:" + passengers);
 
             GameManager.MapReset();
         }
-    }
+
+        if (collision.tag.Equals("Passenger"))
+        {
+            GameManager.UpdatePassengers(passengers);
+            PassengerPickupSound.Play();
+        }
+        
+}
 }

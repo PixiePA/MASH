@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 690256619208665467}
   m_Layer: 0
   m_Name: Soldier
-  m_TagString: Untagged
+  m_TagString: Passenger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,3 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9132c32a492ae2f499cf7067f7356935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MapGen: {fileID: 0}
+  pickupSound: {fileID: 0}

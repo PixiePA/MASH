@@ -5,13 +5,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    public enum GameState {Start, Playing, GameOver};
+    public enum GameState { Start, Playing, GameOver };
     static public GameState state;
     static List<Listener> GameListeners = new List<Listener>();
     static public int score;
-    static int highScore;
-    static float gameTime = 0;
-    static float bestTime;
+    static public int highScore;
+    static public float gameTime = 0;
+    static public float bestTime;
+    static public int passengers;
     [SerializeField] GameObject map;
     static MapGeneratorScript mapGen;
     // Start is called before the first frame update
@@ -25,7 +26,7 @@ public class GameManager : MonoBehaviour
             highScore = PlayerPrefs.GetInt("highScore");
         }
         else
-        highScore = 0;//Getting stores high score
+            highScore = 0;//Getting stores high score
 
 
         if (PlayerPrefs.HasKey("bestTime"))
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
             bestTime = PlayerPrefs.GetFloat("bestTime");
         }
         else
-        bestTime = Mathf.Infinity;
+            bestTime = Mathf.Infinity;
 
         mapGen.GenerateMap();
 
@@ -74,6 +75,8 @@ public class GameManager : MonoBehaviour
 
         state = GameState.Playing;
 
+
+
     }
 
     static public void EndGame()
@@ -84,7 +87,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetFloat("bestTime", gameTime);
             highScore = score;
             bestTime = gameTime;
-            
+
         }
 
         else if (score == highScore && gameTime < bestTime)
@@ -119,5 +122,11 @@ public class GameManager : MonoBehaviour
     static public void MapReset()
     {
         mapGen.SpawnNewTrees();
+    }
+
+    static public void UpdatePassengers(int amount)
+
+    {
+        passengers = amount;
     }
 }

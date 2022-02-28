@@ -6,6 +6,7 @@ public class SoldierController : MonoBehaviour
 {
     // Start is called before the first frame update
     public MapGeneratorScript MapGen;
+    [SerializeField] AudioSource pickupSound;
 
     void Start()
     {
@@ -28,7 +29,6 @@ public class SoldierController : MonoBehaviour
                 Destroy(this.gameObject);
                 playerComponent.passengers++;
             }
-            Debug.Log(playerComponent.passengers);
 
         }
     }
